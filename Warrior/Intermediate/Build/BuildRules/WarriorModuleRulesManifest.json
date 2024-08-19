@@ -1,0 +1,8 @@
+{
+	"SourceFiles": [
+		"D:\\UnReal\\Warrior\\Warrior\\Source\\Warrior\\Warrior.Build.cs",
+		"D:\\UnReal\\Warrior\\Warrior\\Source\\Warrior.Target.cs",
+		"D:\\UnReal\\Warrior\\Warrior\\Source\\WarriorEditor.Target.cs"
+	],
+	"EngineVersion": "5.3.2"
+}
