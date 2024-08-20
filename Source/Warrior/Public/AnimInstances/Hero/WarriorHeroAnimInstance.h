@@ -4,12 +4,29 @@
 #include "AnimInstances/WarriorCharacterAnimInstance.h"
 #include "WarriorHeroAnimInstance.generated.h"
 
+class AWarriorHeroCharacter;
 /**
  * 
  */
 UCLASS()
-class WARRIOR_API UWarriorHeroAnimInstance : public UWarriorCharacterAnimInstance
-{
+class WARRIOR_API UWarriorHeroAnimInstance : public UWarriorCharacterAnimInstance {
 	GENERATED_BODY()
+
+public:
+
+	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
+	virtual void NativeThreadSafeUpdateAnimation(float DeltaSeconds) override;
+
+protected:
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimData|Refrences")
+	AWarriorHeroCharacter* OwningHeroCharacter;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimData|LocomotionData")
+	bool bShouldEnterRelaxState;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "AnimData|LocomotionData")
+	float EnterRelaxStateThreshold = 5.f;
+
+	float IdleElapsedTime;
 	
 };
