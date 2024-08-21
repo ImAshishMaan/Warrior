@@ -7,6 +7,7 @@
 #include "WarriorGameplayTags.h"
 #include "Components/Input/WarriorInputComponent.h"
 #include "DataAssets/Input/DataAsset_InputConfig.h"
+#include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
 #include "GameFramework/SpringArmComponent.h"
 
 AWarriorHeroCharacter::AWarriorHeroCharacter() {
@@ -35,8 +36,10 @@ AWarriorHeroCharacter::AWarriorHeroCharacter() {
 
 void AWarriorHeroCharacter::PossessedBy(AController* NewController) {
 	Super::PossessedBy(NewController);
-	if(WarriorAbilitySystemComponent && WarriorAttributeSet) {
-		Debug::Print(TEXT("Ability system and attribute set are Working"));
+	if(!CharacterStartUpData.IsNull()) {
+		if(UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.LoadSynchronous()) {
+			LoadedData->GiveToAbilitySystemComponent(WarriorAbilitySystemComponent);
+		}
 	}
 }
 
