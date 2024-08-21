@@ -33,6 +33,13 @@ AWarriorHeroCharacter::AWarriorHeroCharacter() {
 	
 }
 
+void AWarriorHeroCharacter::PossessedBy(AController* NewController) {
+	Super::PossessedBy(NewController);
+	if(WarriorAbilitySystemComponent && WarriorAttributeSet) {
+		Debug::Print(TEXT("Ability system and attribute set are Working"));
+	}
+}
+
 void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) {
 	checkf(InputConfigDataAsset, TEXT("Input config is null"));
 	ULocalPlayer* LocalPlayer = GetController<APlayerController>()->GetLocalPlayer();
@@ -50,7 +57,7 @@ void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 
 void AWarriorHeroCharacter::BeginPlay() {
 	Super::BeginPlay();
-	Debug::Print(TEXT("Working"));
+	//Debug::Print(TEXT("Working"));
 }
 
 void AWarriorHeroCharacter::Input_Move(const FInputActionValue& Value) {
