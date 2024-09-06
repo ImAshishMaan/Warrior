@@ -2,6 +2,7 @@
 #include "Items/Weapons/WarriorWeaponBase.h"
 
 #include "WarriorDebugHelper.h"
+#include "Components/BoxComponent.h"
 
 void UPawnCombatComponent::RegisterSpawnedWeapon(FGameplayTag InWeaponTagToRegister,
                                                  AWarriorWeaponBase* InWeaponToRegister,
@@ -33,4 +34,20 @@ AWarriorWeaponBase* UPawnCombatComponent::GetCharacterCurrentEquippedWeapon() co
 	}
 
 	return GetCharacterCarriedWeaponByTag(CurrentEquippedWeaponTag);
+}
+
+void UPawnCombatComponent::ToggleWeaponCollision(bool bShouldEnable, EToggleDamageType ToggleDamageType) {
+	if(ToggleDamageType == EToggleDamageType::CurrentEquippedWeapon) {
+		AWarriorWeaponBase* WeaponToToggle = GetCharacterCurrentEquippedWeapon();
+		
+		check(WeaponToToggle);
+		
+		if(bShouldEnable) {
+			WeaponToToggle->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+			Debug::Print(FString::Printf(TEXT("Setting collision for %s"), *WeaponToToggle->GetFName().ToString()));
+		}else {
+			WeaponToToggle->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+			Debug::Print(FString::Printf(TEXT("Setting no collision for %s"), *WeaponToToggle->GetFName().ToString()));
+		}
+	}
 }
